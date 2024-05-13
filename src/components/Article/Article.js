@@ -1,27 +1,31 @@
 import React from "react";
-import {Link} from 'react-router-dom'
+import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { Tag } from "antd";
+import { useSelector } from "react-redux";
 
 import heart from "../../images/heart.png";
 import avatar from "../../images/avatar.png";
-import makeShortDescription from "../../utils";
+import { appSelectors } from "../../store";
 
-import classes from "./ArticleShort.module.scss";
+import classes from "./Article.module.scss";
 
-export default function ArticleShort({
-  author,
-  createdAt,
-  title,
-  description,
-  tagList,
-  slug
-}) {
-  // console.log('1',slug);
+export default function Article() {
+  const { slug } = useParams();
+
+  const articles = useSelector(appSelectors.articles);
+
+  const index = articles.findIndex((item) => item.slug === slug);
+
+  const article = articles[index];
+
+  const { author, createdAt, title, description, tagList } = article;
+
   const { username, image } = author;
 
   let tagId = 0;
-  const tags = tagList.slice(0, 5).map((tag) => (
+
+  const tags = tagList.map((tag) => (
     <Tag key={tagId++} className={classes.tags}>
       {tag}
     </Tag>
@@ -31,7 +35,7 @@ export default function ArticleShort({
     <article className={classes.blog_article}>
       <div className={classes.left}>
         <div>
-          <Link to={`/articles/${slug}`} className={classes.title}>{makeShortDescription(title)}</Link>
+          <span className={classes.title}>{title}</span>
           <div className={classes.likes}>
             <span>
               <img src={heart} alt="heart" />
@@ -41,7 +45,7 @@ export default function ArticleShort({
         </div>
         <div className={classes.tags}>{tags}</div>
         <div className={classes.text}>
-          {makeShortDescription(description, 200)}
+          {description}
         </div>
       </div>
       <div className={classes.right}>

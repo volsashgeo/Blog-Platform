@@ -1,6 +1,12 @@
 import React from "react";
 import "./App.module.scss";
-import UnauthorizedList from '../UnauthorizedList'
+import { Routes, Route } from "react-router-dom";
+
+import NotFoundPage from "../NotFoundPage";
+import SignUp from "../SignUp";
+import Article from "../Article";
+import Layout from "../Layout";
+import UnauthorizedList from "../UnauthorizedList";
 
 function App() {
   // const formData = {
@@ -27,9 +33,19 @@ function App() {
   // },[])
   // console.log(a?.user);
 
-  return <div className="App">
-    <UnauthorizedList />
-  </div>;
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<UnauthorizedList />} />
+          <Route path="/articles" element={<UnauthorizedList />} />
+          <Route path="/articles/:slug" element={<Article />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

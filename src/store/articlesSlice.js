@@ -1,20 +1,17 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // import { getTickets } from '../services/aviasales-service';
 
-export const fetchArticles = createAsyncThunk(
-  "articles/fetchArticles",
-  async (page = 1) => {
-    const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(page - 1) * 5}`);
+export const fetchArticles = createAsyncThunk('articles/fetchArticles', async (page = 1) => {
+  const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(page - 1) * 5}`);
 
-    const articlesObj = await response.json();
-    // console.log(articlesObj.articles);
-    return articlesObj;
-  }
-);
+  const articlesObj = await response.json();
+  // console.log(articlesObj.articles);
+  return articlesObj;
+});
 
 const articlesSlice = createSlice({
-  name: "articles",
+  name: 'articles',
   initialState: {
     articles: [],
     articlesCount: null,
@@ -44,7 +41,6 @@ const articlesSlice = createSlice({
 });
 
 export default articlesSlice.reducer;
-
 
 // export const fetchPost = createAsyncThunk<{ articles: Post[]; articlesCount: number }, number>('app/fetchPost', async (page: number) => {
 //     const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(page - 1) * 5}`)

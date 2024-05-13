@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 
-import articlesReducer from './articlesSlice';
+import articlesReducer from "./articlesSlice";
 // import pageReducer from './pageSlice';
 // import ticketsReducer from './ticketsSlice';
-import * as appSelectors from './selectors';
+import * as appSelectors from "./selectors";
 
 export default configureStore({
   reducer: {
