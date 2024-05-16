@@ -54,6 +54,17 @@
   line-height: 22px;
 }
 
+@media (max-width: 840px) {
+  .text {
+    // position: absolute;
+    // top:70px;
+    width: 160%;
+    font-size: 12px;
+    line-height: 22px;
+  }
+
+}
+
 .right {
   position: absolute;
   right: 0;
@@ -84,6 +95,7 @@
 .name {
   margin-top: 14px;
   font-size: 18px;
+  margin-bottom: 3px;
 }
 
 .date {

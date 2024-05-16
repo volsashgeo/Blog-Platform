@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { fetchTokenAuth } from '../../store/tokenSlice';
+import { fetchTokenEditProfile } from '../../store/tokenSlice';
 
-import classes from './SignUp.module.scss';
+import classes from './EditProfile.module.scss';
 
-export default function SignUp() {
+export default function EditProfile() {
   const dispatch = useDispatch();
-
-  const [password, setPassword] = useState(null);
 
   const navigate = useNavigate();
 
@@ -32,20 +30,21 @@ export default function SignUp() {
         username: valuesFromForm.username,
         email: valuesFromForm.email,
         password: valuesFromForm.password,
+        image: valuesFromForm.avatar
       },
     };
 
     const userData = JSON.stringify(formData);
 
-    dispatch(fetchTokenAuth(userData));
-    navigate('/sign-in');
+    dispatch(fetchTokenEditProfile(userData));
+    navigate('/profile');
   };
 
   // ! end send to server
 
   return (
     <div className={classes.wrapper}>
-      <h1>Create new account</h1>
+      <h1>Edit Profile</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <label className={classes.label}>
@@ -56,14 +55,6 @@ export default function SignUp() {
             className={classes.input}
             {...register('username', {
               required: 'Required field',
-              minLength: {
-                value: 3,
-                message: 'Minimum 3 characters',
-              },
-              maxLength: {
-                value: 20,
-                message: 'Maximum 20 characters',
-              },
             })}
             style={errors.username ? { borderColor: 'rgba(245, 34, 45, 1)' } : null}
           />
@@ -99,14 +90,14 @@ export default function SignUp() {
         ) : null}
 
         <label className={classes.label}>
-          Password
+          New password
           <input
             type="password"
-            placeholder="Password"
+            placeholder="New password"
             className={classes.input}
             {...register('password', {
               required: 'Required field',
-              onChange: (e) => setPassword(e.target.value),
+              // onChange: (e) => setPassword(e.target.value),
               minLength: {
                 value: 6,
                 message: 'Your password needs to be at least 6 characters.',
@@ -127,55 +118,32 @@ export default function SignUp() {
         ) : null}
 
         <label className={classes.label}>
-          Repeat Password
+          Avatar image (url)
           <input
-            type="password"
-            placeholder="Repeat Password"
+            type="text"
+            placeholder="Avatar image"
             className={classes.input}
-            {...register('confirm', {
-              required: 'Required field',
-              validate: (value) => value === password || 'Passwords must match',
+            {...register('avatar', {
+              // required: 'Required field',
+
+              pattern: {
+                value: /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/,
+                message: 'Invalid Url',
+              },
+              // validate: (value) => value === password || 'Passwords must match',
             })}
-            style={errors.confirm ? { borderColor: 'rgba(245, 34, 45, 1)' } : null}
+            style={errors.avatar ? { borderColor: 'rgba(245, 34, 45, 1)' } : null}
           />
         </label>
 
-        {errors.confirm ? (
+        {errors.avatar ? (
           <div className={classes.error_message}>
-            <p> {errors?.confirm?.message}</p>
+            <p> {errors?.avatar?.message}</p>
           </div>
         ) : null}
 
-        <div className={classes.checkbox_wrapper}>
-          <label className={classes.label_checkbox}>
-            <input
-              type="checkbox"
-              className={classes.checkbox}
-              {...register('checkbox', {
-                required: 'Required checkbox',
-              })}
-              style={errors.checkbox ? { accentColor: 'rgba(245, 34, 45, 1)' } : null}
-            />
-            I agree to the processing of my personal information
-          </label>
-
-          {errors.checkbox ? (
-            <div className={classes.error_message_check}>
-              <p> {errors?.checkbox?.message}</p>
-            </div>
-          ) : null}
-        </div>
-        <button className={classes.submit_button} >
-          Create
-        </button>
+        <button className={classes.submit_button}>Create</button>
       </form>
-
-      <span className={classes.have_an_account}>
-        Already have an account?&nbsp;
-        <Link to="/sign-in" className={classes.sign_in}>
-          Sign In.
-        </Link>
-      </span>
     </div>
   );
 }

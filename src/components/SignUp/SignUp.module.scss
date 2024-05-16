@@ -1,0 +1,248 @@
+.wrapper {
+  max-width: 384px;
+  background-color: #fff;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrapper h1 {
+  text-align: center;
+  padding: 48px 0 21px 0;
+}
+
+.form {
+  height: 599px;
+  margin: 0 32px;
+}
+
+.sign_in {
+  color: rgba(24, 144, 255, 1);
+}
+
+.label {
+  margin-left: 32px;
+  margin-right: 32px;
+}
+
+.input {
+  margin-left: 32px;
+  margin-right: 32px;
+  width: 83%;
+  border-radius: 5px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  padding-left: 12px;
+  outline: none;
+  border: 1px solid rgba(217, 217, 217, 1);
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+.checkbox_wrapper {
+  margin-left: 56px;
+  position: relative;
+}
+
+.label_checkbox {
+  font-size: 14px;
+}
+
+.checkbox {
+  margin: 0;
+  position: absolute;
+  left: -24px;
+  width: 16px;
+  height: 16px;
+}
+
+.submit_button {
+  width: 83%;
+  margin-left: 32px;
+  background-color: rgba(24, 144, 255, 1);
+  padding: 8px 16px 8px 16px;
+  gap: 4px;
+  border-radius: 4px;
+  border: none;
+  color: #fff;
+  margin-top: 21px;
+  cursor: pointer;
+}
+
+.have_an_account {
+  display: flex;
+  justify-content: center;
+  color: rgba(140, 140, 140, 1);
+  font-size: 12px;
+  padding: 8px 0 48px 0;
+}
+
+.error_message {
+  height: '22px';
+  font-size: 14px;
+  color:red;
+  margin-bottom: 12px;
+  margin-right: auto;
+  margin-left: 32px;
+}
+
+.error_message_check {
+  height: '22px';
+  font-size: 14px;
+  color:red;
+  margin-top: 6px;
+  margin-right: auto;
+  margin-left: -24px;
+}
+// <Form
+// name="basic"
+// style={{
+//   maxWidth: 600,
+// }}
+// initialValues={{
+//   remember: true,
+// }}
+// onFinish={handleSubmit(onFinish)}
+// onFinishFailed={handleSubmit(onFinishFailed)}
+// autoComplete="off"
+// className={classes.form}
+// layout="vertical"
+// >
+// <Form.Item
+//   label="Username"
+//   // name="username"
+//   // rules={[
+//   //   {
+//   //     required: true,
+//   //     message: 'Please input your username!',
+//   //   },
+//   // ]}
+//   wrapperCol={{
+//     offset: 0,
+//   }}
+// >
+//   <Input
+//     // required
+//     placeholder="Username"
+//     {...register('username')}
+//   />
+//   {/* <Controller
+//     control={control}
+//     name="username"
+//     render={({ field }) => {
+//       console.log('field', field);
+//       return <Input {...field} placeholder="Username"  />;
+//     }}
+//   /> */}
+// </Form.Item>
+
+// <Form.Item
+//   label="Email address"
+//   name="email address"
+//   rules={[
+//     {
+//       type: 'email',
+//       message: 'The input is not valid E-mail!',
+//     },
+//     {
+//       // required: true,
+//       message: 'Please input your E-mail!',
+//     },
+//   ]}
+//   wrapperCol={{
+//     offset: 0,
+//     // span: 60,
+//   }}
+//   // style={{width:'200%'}}
+// >
+//   <Input required placeholder="Email address" />
+// </Form.Item>
+
+// {/* <Form.Item
+//   label="Password"
+//   name="password"
+//   rules={[
+//     {
+//       required: true,
+//       message: 'Please input your password!',
+//     },
+//   ]}
+//   wrapperCol={{
+//     offset: 0,
+//   }}
+//   className={classes.form_item}
+// >
+//   <Input.Password />
+// </Form.Item> */}
+
+// <Form.Item
+//   label="Password"
+//   name="password"
+//   rules={[
+//     {
+//       // required: true,
+//       message: 'Your password needs to be at least 6 characters.',
+//     },
+//   ]}
+//   wrapperCol={{
+//     offset: 0,
+//   }}
+//   hasFeedback
+// >
+//   <Input.Password required placeholder="Password" />
+// </Form.Item>
+
+// <Form.Item
+//   label="Repeat Password"
+//   name="repeat password"
+//   dependencies={['password']}
+//   hasFeedback
+//   rules={[
+//     {
+//       // required: true,
+//       message: 'Please confirm your password!',
+//     },
+//     ({ getFieldValue }) => ({
+//       validator(_, value) {
+//         if (!value || getFieldValue('password') === value) {
+//           return Promise.resolve();
+//         }
+//         return Promise.reject(new Error('Passwords must match'));
+//       },
+//     }),
+//   ]}
+//   wrapperCol={{
+//     offset: 0,
+//   }}
+// >
+//   <Input.Password required placeholder="Password" />
+// </Form.Item>
+
+// <Form.Item
+//   name="remember"
+//   valuePropName="checked"
+//   wrapperCol={{
+//     offset: 0,
+//   }}
+// >
+//   <Checkbox>I agree to the processing of my personal information</Checkbox>
+// </Form.Item>
+
+// <Form.Item
+//   wrapperCol={
+//     {
+//       // offset: 0,
+//       // span: 16,
+//     }
+//   }
+// >
+//   <Button type="primary" htmlType="submit" block>
+//     Create
+//   </Button>
+// </Form.Item>
+// <span className={classes.have_an_account}>
+//   Already have an account?&nbsp;
+//   <Link to="/sign-in" className={classes.sign_in}>
+//     Sign In.
+//   </Link>
+// </span>
+// </Form>

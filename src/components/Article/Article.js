@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { Tag } from "antd";
 import { useSelector } from "react-redux";
+import Markdown from 'react-markdown'
 
 import heart from "../../images/heart.png";
 import avatar from "../../images/avatar.png";
@@ -45,7 +46,7 @@ export default function Article() {
         </div>
         <div className={classes.tags}>{tags}</div>
         <div className={classes.text}>
-          {description}
+          <Markdown>{description}</Markdown>
         </div>
       </div>
       <div className={classes.right}>

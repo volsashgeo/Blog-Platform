@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// import { getTickets } from '../services/aviasales-service';
-
 export const fetchArticles = createAsyncThunk('articles/fetchArticles', async (page = 1) => {
   const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(page - 1) * 5}`);
 
@@ -29,7 +27,7 @@ const articlesSlice = createSlice({
       state.loading = false;
       // console.log(action.payload.articles);
       if (action.payload?.articles) {
-        state.articles = [/* ...state.articles, */ ...action.payload.articles];
+        state.articles = [...action.payload.articles];
         state.articlesCount = action.payload.articlesCount;
       }
     });

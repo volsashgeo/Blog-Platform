@@ -4,8 +4,10 @@ import { Routes, Route } from "react-router-dom";
 
 import NotFoundPage from "../NotFoundPage";
 import SignUp from "../SignUp";
+import SignIn from "../SignIn";
 import Article from "../Article";
 import Layout from "../Layout";
+import EditProfile from "../EditProfile/EditProfile";
 import UnauthorizedList from "../UnauthorizedList";
 
 function App() {
@@ -40,7 +42,9 @@ function App() {
           <Route index element={<UnauthorizedList />} />
           <Route path="/articles" element={<UnauthorizedList />} />
           <Route path="/articles/:slug" element={<Article />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/profile" element={<EditProfile />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
