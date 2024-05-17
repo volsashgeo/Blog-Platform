@@ -1,8 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { appSelectors } from '../../store';
 import { fetchTokenLogin } from '../../store/tokenSlice';
 
 import classes from './SignIn.module.scss';
@@ -11,6 +12,8 @@ export default function SignIn() {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const { error } = useSelector(appSelectors.tokenObj);
 
   const {
     register,
@@ -81,9 +84,9 @@ export default function SignIn() {
           </div>
         ) : null}
 
-        <button className={classes.submit_button} >
-          Login
-        </button>
+        {error && <span className={classes.error_message}> Unregistered email or password</span>}
+
+        <button className={classes.submit_button}>Login</button>
       </form>
 
       <span className={classes.have_an_account}>

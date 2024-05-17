@@ -8,7 +8,7 @@ header {
 }
 
 header:first-child {
-  margin-left: 22px;
+  padding-left: 22px;
 }
 
 .sign_block a:last-child {
@@ -63,7 +63,7 @@ a {
 }
 
 .wrapper {
-  background-color: rgba(235, 238, 243, 1);
+  // background-color: rgba(235, 238, 243, 1);
   padding-top: 26px;
   padding-bottom: 64px;
 }
