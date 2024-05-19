@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { fetchTokenAuth } from '../../store/tokenSlice';
+import { fetchUserAuth } from '../../store/userSlice';
 
 import classes from './SignUp.module.scss';
 
@@ -22,8 +22,6 @@ export default function SignUp() {
     mode: 'all',
   });
 
-  // ! start send to server
-
   const onSubmit = (valuesFromForm) => {
     console.log('Success:', valuesFromForm);
 
@@ -37,11 +35,9 @@ export default function SignUp() {
 
     const userData = JSON.stringify(formData);
 
-    dispatch(fetchTokenAuth(userData));
+    dispatch(fetchUserAuth(userData));
     navigate('/sign-in');
   };
-
-  // ! end send to server
 
   return (
     <div className={classes.wrapper}>

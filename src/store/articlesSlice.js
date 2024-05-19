@@ -4,7 +4,6 @@ export const fetchArticles = createAsyncThunk('articles/fetchArticles', async (p
   const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(page - 1) * 5}`);
 
   const articlesObj = await response.json();
-  // console.log(articlesObj.articles);
   return articlesObj;
 });
 
@@ -25,7 +24,6 @@ const articlesSlice = createSlice({
 
     builder.addCase(fetchArticles.fulfilled, (state, action) => {
       state.loading = false;
-      // console.log(action.payload.articles);
       if (action.payload?.articles) {
         state.articles = [...action.payload.articles];
         state.articlesCount = action.payload.articlesCount;
@@ -39,12 +37,3 @@ const articlesSlice = createSlice({
 });
 
 export default articlesSlice.reducer;
-
-// export const fetchPost = createAsyncThunk<{ articles: Post[]; articlesCount: number }, number>('app/fetchPost', async (page: number) => {
-//     const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(page - 1) * 5}`)
-//     const data = await response.json()
-//     return {
-//       articles: data.articles,
-//       articlesCount: data.articlesCount,
-//     }
-//   })

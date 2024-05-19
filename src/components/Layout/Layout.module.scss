@@ -35,7 +35,7 @@ header:first-child {
   font-size: 14px;
 }
 
-.sign_block_auth a:last-child {
+.sign_block_auth button:last-child {
   margin-right: 22px;
   margin-left: 22px;
   color: rgba(0, 0, 0, 0.75);
@@ -44,6 +44,7 @@ header:first-child {
   border-radius: 5px;
   font-size: 14px;
   width: 96px;
+  background-color: #fff;
 }
 
 .user_avatar {
@@ -63,7 +64,6 @@ a {
 }
 
 .wrapper {
-  // background-color: rgba(235, 238, 243, 1);
   padding-top: 26px;
   padding-bottom: 64px;
 }

@@ -19,7 +19,7 @@ export default function UnauthorizedList() {
 
   const elems = articles.map((item) => {
     const { slug } = item;
-    return <ArticleShort key={slug} {...item} />;
+    return <ArticleShort key={slug} {...item}  /* slug ={slug} */ />;
   });
 
   return (

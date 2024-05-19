@@ -1,0 +1,163 @@
+.wrapper {
+  max-width: 938px;
+  background-color: #fff;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrapper h1 {
+  text-align: center;
+  padding: 48px 0 21px 0;
+}
+
+.form {
+  height: 599px;
+  margin: 0 32px;
+}
+
+.sign_in {
+  color: rgba(24, 144, 255, 1);
+}
+
+.label {
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+.input {
+  margin-left: 3%;
+  margin-right: 3%;
+  width: 93%;
+  border-radius: 5px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  padding-left: 12px;
+  outline: none;
+  border: 1px solid rgba(217, 217, 217, 1);
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+.textaria {
+  margin-left: 3%;
+  margin-right: 3%;
+  width: 93%;
+  border-radius: 5px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  padding-left: 12px;
+  outline: none;
+  border: 1px solid rgba(217, 217, 217, 1);
+  padding: 8px 12px;
+  font-size: 16px;
+  height: 168px;
+}
+
+.tags_label {
+  margin-left: 3%;
+  margin-right: 3%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tags_input {
+  width: 32%;
+  border-radius: 5px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  padding-left: 12px;
+  outline: none;
+  border: 1px solid rgba(217, 217, 217, 1);
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+.delete_button {
+    width: 120px;
+    border-radius: 5px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    padding-left: 12px;
+    outline: none;
+    border: 1px solid rgba(245, 34, 45, 1);
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #fff;
+    color:rgba(245, 34, 45, 1);
+    margin-left: 17px;
+    margin-right: 17px;
+    cursor:pointer;
+}
+
+.add_tag_button {
+    width: 120px;
+    border-radius: 5px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    padding-left: 12px;
+    outline: none;
+    border: 1px solid rgba(24, 144, 255, 1);
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #fff;
+    color:rgba(24, 144, 255, 1);
+    cursor:pointer;
+}
+
+.checkbox_wrapper {
+  margin-left: 56px;
+  position: relative;
+}
+
+.label_checkbox {
+  font-size: 14px;
+}
+
+.checkbox {
+  margin: 0;
+  position: absolute;
+  left: -24px;
+  width: 16px;
+  height: 16px;
+}
+
+.submit_button {
+  width: 34%;
+  margin-left: 3%;
+  background-color: rgba(24, 144, 255, 1);
+  padding: 8px 16px 8px 16px;
+  gap: 4px;
+  border-radius: 4px;
+  border: none;
+  color: #fff;
+  margin-top: 9px;
+  margin-bottom: 48px;
+
+  cursor: pointer;
+}
+
+.have_an_account {
+  display: flex;
+  justify-content: center;
+  color: rgba(140, 140, 140, 1);
+  font-size: 12px;
+  padding: 8px 0 48px 0;
+}
+
+.error_message {
+  height: '22px';
+  font-size: 14px;
+  color: red;
+  margin-bottom: 12px;
+  margin-right: auto;
+  margin-left: 32px;
+}
+
+.error_message_check {
+  height: '22px';
+  font-size: 14px;
+  color: red;
+  margin-top: 6px;
+  margin-right: auto;
+  margin-left: -24px;
+}

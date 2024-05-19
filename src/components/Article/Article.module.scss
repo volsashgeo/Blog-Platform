@@ -53,7 +53,7 @@
   top: 0;
 }
 
-.right div {
+.right div:first-child {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -82,4 +82,40 @@
 
 .date {
   font-size: 12px;
+}
+
+.buttons_block {
+  display: flex;
+  // flex-wrap: nowrap;
+  margin-top: 40px;
+  display: inline-block;
+  // justify-content:space-between;
+  width: auto;
+}
+
+.button:first-child {
+  color: rgba(245, 34, 45, 1);
+  border:1px solid rgba(245, 34, 45, 1);
+  margin-right: 12px;
+  margin-left: -16px;
+}
+
+.button:last-child {
+  color: rgba(82, 196, 26, 1);
+  border:1px solid rgba(82, 196, 26, 1);
+}
+
+.button {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 6px 17px;
+  cursor: pointer;
+}
+
+.ant-popover{
+  max-width: 200px !important;
+}
+
+.text_body {
+  margin-top: 2.5rem;
 }

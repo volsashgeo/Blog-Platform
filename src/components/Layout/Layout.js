@@ -1,52 +1,39 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchTokenReset } from '../../store/tokenSlice';
+import { fetchUserReset } from '../../store/userSlice';
 import { appSelectors } from '../../store';
 import defaultAvatar from '../../images/avatar.png';
 
 import classes from './Layout.module.scss';
 
 export default function Layout() {
-  // const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
   const dispatch = useDispatch();
-  const token = useSelector(appSelectors.token);
-  // const auth = Boolean(localStorage.getItem('auth'));
-  // console.log('auth Layout', auth === true);
-  console.log('token', token);
-
-  const storageData = localStorage.getItem('user');
-
-
-  const username = JSON.parse(storageData)?.username;
-  const avatar = JSON.parse(storageData)?.image;
-  // const username = storageData?.username;
-  const pic = avatar === '' ? defaultAvatar : avatar
-  console.log('username', username);
-  console.log('storageData', storageData);
+  const user = useSelector(appSelectors.userObj);
+  const username = user?.username ?? localStorage.getItem('username');
+  const avatar = localStorage.getItem('image');
+  const pic = avatar === '' ? defaultAvatar : avatar;
 
   return username ? (
     <>
       <header>
         <Link to="/">Realworld Blog</Link>
         <div className={classes.sign_block_auth}>
-          <Link to="/sign-in">Create article</Link>
+          <Link to="/new-article">Create article</Link>
 
           <Link to="/profile" className={classes.user_data}>
             <span>{username}</span>
             <img src={pic} alt="user-avatar" className={classes.user_avatar} />
           </Link>
-          <Link
-            to="/sign-in"
+          <button
             onClick={() => {
-              localStorage.removeItem('user');
-              dispatch(fetchTokenReset({}));
-              // setUser(null)
+              localStorage.clear();
+              dispatch(fetchUserReset({}));
             }}
           >
             Log Out
-          </Link>
+          </button>
         </div>
       </header>
       <div className={classes.wrapper}>

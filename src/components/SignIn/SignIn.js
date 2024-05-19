@@ -1,19 +1,26 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { appSelectors } from '../../store';
-import { fetchTokenLogin } from '../../store/tokenSlice';
+import { fetchUserLogin } from '../../store/userSlice';
 
 import classes from './SignIn.module.scss';
 
 export default function SignIn() {
+  const location = useLocation();
   const dispatch = useDispatch();
+
+  const fromPage = location.state?.from?.pathname || -1;
 
   const navigate = useNavigate();
 
-  const { error } = useSelector(appSelectors.tokenObj);
+  const { error, username } = useSelector(appSelectors.userObj);
+
+  if (username) {
+    navigate(fromPage, { replace: true });
+  }
 
   const {
     register,
@@ -33,8 +40,7 @@ export default function SignIn() {
 
     const userData = JSON.stringify(formData);
 
-    dispatch(fetchTokenLogin(userData));
-    navigate('/sign-in');
+    dispatch(fetchUserLogin(userData));
   };
 
   return (

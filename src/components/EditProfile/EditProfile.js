@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { fetchTokenEditProfile } from '../../store/tokenSlice';
+import { fetchUserEditProfile } from '../../store/userSlice';
 
 import classes from './EditProfile.module.scss';
 
@@ -20,27 +20,21 @@ export default function EditProfile() {
     mode: 'all',
   });
 
-  // ! start send to server
-
   const onSubmit = (valuesFromForm) => {
-    console.log('Success:', valuesFromForm);
-
     const formData = {
       user: {
         username: valuesFromForm.username,
         email: valuesFromForm.email,
         password: valuesFromForm.password,
-        image: valuesFromForm.avatar
+        image: valuesFromForm.avatar,
       },
     };
 
     const userData = JSON.stringify(formData);
 
-    dispatch(fetchTokenEditProfile(userData));
+    dispatch(fetchUserEditProfile(userData));
     navigate('/profile');
   };
-
-  // ! end send to server
 
   return (
     <div className={classes.wrapper}>
