@@ -6,7 +6,7 @@ import ArticleShort from "../ArticleShort";
 import { fetchArticles } from "../../store/articlesSlice";
 import { appSelectors } from "../../store";
 
-import classes from "./UnauthorizedList.module.scss";
+import classes from "./ArticlesList.module.scss";
 
 export default function UnauthorizedList() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export default function UnauthorizedList() {
 
   const elems = articles.map((item) => {
     const { slug } = item;
-    return <ArticleShort key={slug} {...item}  /* slug ={slug} */ />;
+    return <ArticleShort key={slug} {...item} />;
   });
 
   return (

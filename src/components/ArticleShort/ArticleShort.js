@@ -2,14 +2,28 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { Tag } from 'antd';
+import { useDispatch } from 'react-redux';
 
-import heart from '../../images/heart.png';
+import whiteHeart from '../../images/white_heart.svg';
+import redHeart from '../../images/red_heart.svg';
 import avatar from '../../images/avatar.png';
 import makeShortDescription from '../../utils';
+import { fetchSetLike, fetchDeleteLike } from '../../store/articlesSlice';
 
 import classes from './ArticleShort.module.scss';
 
-export default function ArticleShort( { author, createdAt, title, description, tagList, slug} ) {
+export default function ArticleShort({
+  author,
+  createdAt,
+  title,
+  description,
+  tagList,
+  favoritesCount,
+  favorited,
+  slug,
+}) {
+  const dispatch = useDispatch();
+
   const username = author?.username;
   const image = author?.image;
 
@@ -20,6 +34,14 @@ export default function ArticleShort( { author, createdAt, title, description, t
     </Tag>
   ));
 
+  const handleHeartClick = () => {
+    if (!favorited) {
+      dispatch(fetchSetLike(slug));
+    } else {
+      dispatch(fetchDeleteLike(slug));
+    }
+  };
+
   return (
     <article className={classes.blog_article}>
       <div className={classes.left}>
@@ -29,13 +51,13 @@ export default function ArticleShort( { author, createdAt, title, description, t
           </Link>
           <div className={classes.likes}>
             <span>
-              <img src={heart} alt="heart" />
+              <input type="image" src={favorited ? redHeart : whiteHeart} alt="heart" onClick={handleHeartClick}></input>
             </span>
-            12
+            {favoritesCount}
           </div>
         </div>
         <div className={classes.tags}>{tags}</div>
-        <div className={classes.text}>{makeShortDescription(description, 200)}</div>
+        <div className={classes.text}>{makeShortDescription(description, 100)}</div>
       </div>
       <div className={classes.right}>
         <div>

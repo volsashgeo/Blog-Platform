@@ -23,7 +23,6 @@ export default function SignUp() {
   });
 
   const onSubmit = (valuesFromForm) => {
-    console.log('Success:', valuesFromForm);
 
     const formData = {
       user: {

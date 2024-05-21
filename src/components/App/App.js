@@ -8,7 +8,7 @@ import SignIn from '../SignIn';
 import Article from '../Article';
 import Layout from '../Layout';
 import EditProfile from '../EditProfile/EditProfile';
-import UnauthorizedList from '../UnauthorizedList';
+import ArticlesList from '../ArticlesList';
 import CreateArticle from '../CreateArticle';
 import EditArticle from '../EditArticle';
 import RequireAuth from '../../hoc/RequireAuth';
@@ -18,8 +18,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<UnauthorizedList />} />
-          <Route path="/articles" element={<UnauthorizedList />} />
+          <Route index element={<ArticlesList />} />
+          <Route path="/articles" element={<ArticlesList />} />
           <Route path="/articles/:slug" element={<Article />} />
           <Route
             path="/articles/:slug/edit"

@@ -91,7 +91,6 @@ export default function EditProfile() {
             className={classes.input}
             {...register('password', {
               required: 'Required field',
-              // onChange: (e) => setPassword(e.target.value),
               minLength: {
                 value: 6,
                 message: 'Your password needs to be at least 6 characters.',
@@ -118,13 +117,11 @@ export default function EditProfile() {
             placeholder="Avatar image"
             className={classes.input}
             {...register('avatar', {
-              // required: 'Required field',
 
               pattern: {
                 value: /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/,
                 message: 'Invalid Url',
               },
-              // validate: (value) => value === password || 'Passwords must match',
             })}
             style={errors.avatar ? { borderColor: 'rgba(245, 34, 45, 1)' } : null}
           />

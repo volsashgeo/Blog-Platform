@@ -12,7 +12,7 @@ export default function SignIn() {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const fromPage = location.state?.from?.pathname || -1;
+  const fromPage = location.state?.from?.pathname || '/';
 
   const navigate = useNavigate();
 

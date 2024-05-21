@@ -1,32 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// export const fetchTokenAuth = createAsyncThunk('token/fetchTokenAuth', async (data) => {
-//   try {
-//     const url = `https://blog.kata.academy/api/users`;
-
-//     const response = await fetch(url, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: data,
-//     });
-
-//     if (!response.ok) {
-//       throw new Error(`Could not fetch ${url}, received ${response.status}`);
-//     }
-
-//     userObj = await response.json();
-//     if (userObj) {
-//       localStorage.setItem('user', JSON.stringify(userObj.user));
-//     }
-//     console.log('userObj.user', userObj.user);
-//   } catch (e) {
-//     console.log(e.message);
-//   }
-//   return userObj.user.token;
-// });
-
 let userObj = null;
 
 export const fetchUserAuth = createAsyncThunk('user/fetchUser', async (data, { rejectWithValue }) => {
@@ -58,22 +31,6 @@ export const fetchUserAuth = createAsyncThunk('user/fetchUser', async (data, { r
   return userObj.user;
 });
 
-// export const fetchUserLogin = createAsyncThunk('user/fetchUser', async (data) => {
-//   const response = await fetch(`https://blog.kata.academy/api/users/login`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: data,
-//   });
-
-//   const userObj = await response.json();
-//   if (userObj) {
-//     localStorage.setItem('user', JSON.stringify(userObj.user));
-//   }
-//   return userObj.user;
-// });
-
 export const fetchUserLogin = createAsyncThunk('user/fetchUser', async (data,{rejectWithValue}) => {
   try {
     const url = `https://blog.kata.academy/api/users/login`;
@@ -102,28 +59,6 @@ export const fetchUserLogin = createAsyncThunk('user/fetchUser', async (data,{re
   }
   return userObj.user;
 });
-
-// export const fetchUserEditProfile = createAsyncThunk('user/fetchUser', async (data) => {
-
-//   const token = localStorage.getItem('token');
-//   console.log('token', token);
-
-//   const response = await fetch(`https://blog.kata.academy/api/user`, {
-//     method: 'PUT',
-//     headers: {
-//       'Authorization': `Token ${token}`,
-//       'Content-Type': 'application/json',
-//     },
-//     body: data,
-//   });
-
-//   userObj = await response.json();
-//   console.log('userObj', userObj);
-//   if (userObj) {
-//     // localStorage.setItem('user', JSON.stringify(userObj.user));
-//   }
-//   return userObj.user;
-// });
 
 export const fetchUserEditProfile = createAsyncThunk('user/fetchUser', async (data, { rejectWithValue }) => {
   try {

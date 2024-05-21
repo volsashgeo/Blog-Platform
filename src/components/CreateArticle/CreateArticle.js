@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch,} from 'react-redux';
 
-import { fetchCreateArticle, fetchEditArticle } from '../../store/oneArticleSlice';
+// import {  fetchEditArticle } from '../../store/oneArticleSlice';
+import { fetchCreateArticle,fetchEditArticle } from '../../store/articlesSlice';
 
 import classes from './CreateArticle.module.scss';
 
@@ -78,7 +79,6 @@ export default function CreateArticle({
     setTagsArray(newArr);
   };
 
-  // let nextTag = 0;
   const tags = tagsArray.map((tag) => (
     <div key={tag}>
       <input

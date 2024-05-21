@@ -1,31 +1,38 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate,useLocation} from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { format } from 'date-fns';
 import { Tag, Popconfirm } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import Markdown from 'markdown-to-jsx';
 
-import { fetchOneArticle } from '../../store/oneArticleSlice';
-import heart from '../../images/heart.png';
+import { fetchArticle, fetchSetLike, fetchDeleteLike } from '../../store/articlesSlice';
 import avatar from '../../images/avatar.png';
 import { appSelectors } from '../../store';
+import whiteHeart from '../../images/white_heart.svg';
+import redHeart from '../../images/red_heart.svg';
 
 import classes from './Article.module.scss';
 
 export default function Article() {
   const { slug } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchArticle(slug));
+  }, [dispatch, slug]);
+
   const navigate = useNavigate();
   const location = useLocation();
 
   const fromPage = location.state?.from?.pathname || -1;
 
-  const dispatch = useDispatch();
-  const  article = useSelector(appSelectors.article);
+  // const article = useSelector(appSelectors.article);
+  // console.log('article',article)
+  const articles = useSelector(appSelectors.articles);
 
-  useEffect(() => {
-    dispatch(fetchOneArticle(slug));
-  }, [dispatch, slug]);
+  // console.log('articles from articlesSlice', articles);
 
+  const article = articles.filter((item) => item.slug === slug)[0] ?? articles[-1];
   const usernameFromStorage = localStorage.getItem('username');
 
   const author = article?.author;
@@ -36,6 +43,8 @@ export default function Article() {
   const tagList = article?.tagList;
   const username = author?.username;
   const image = author?.image;
+  const favoritesCount = article?.favoritesCount;
+  const favorited = article?.favorited;
 
   const postOfUser = usernameFromStorage === username;
 
@@ -61,6 +70,26 @@ export default function Article() {
     navigate(fromPage, { replace: true });
   };
 
+  const handleHeartClick = () => {
+    if (!favorited ) {
+      dispatch(fetchSetLike(slug));
+    } else {
+      dispatch(fetchDeleteLike(slug));
+    }
+  };
+
+  // const handleHeartClick = () => {
+  //   if (!like) {
+  //     setLike((s) => !s);
+  //     setLikesCount((s) => s + 1);
+  //     dispatch(fetchSetLike(slug));
+  //   } else {
+  //     setLike((s) => !s);
+  //     setLikesCount((s) => s - 1);
+  //     dispatch(fetchDeleteLike(slug));
+  //   }
+  // };
+
   return (
     <article className={classes.blog_article}>
       <div className={classes.left}>
@@ -68,9 +97,14 @@ export default function Article() {
           <span className={classes.title}>{title}</span>
           <div className={classes.likes}>
             <span>
-              <img src={heart} alt="heart" />
+              <input
+                type="image"
+                src={favorited ? redHeart : whiteHeart}
+                alt="heart"
+                onClick={handleHeartClick}
+              ></input>
             </span>
-            12
+            {favoritesCount }
           </div>
         </div>
         <div className={classes.tags}>{tags}</div>
