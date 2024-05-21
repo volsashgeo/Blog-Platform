@@ -35,7 +35,7 @@ export default function SignUp() {
     const userData = JSON.stringify(formData);
 
     dispatch(fetchUserAuth(userData));
-    navigate('/sign-in');
+    navigate('/');
   };
 
   return (

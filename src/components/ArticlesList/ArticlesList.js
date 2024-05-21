@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Pagination } from "antd";
+import { Pagination,Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
 import ArticleShort from "../ArticleShort";
@@ -12,6 +12,7 @@ export default function UnauthorizedList() {
   const dispatch = useDispatch();
   const articles = useSelector(appSelectors.articles);
   const articlesCount = useSelector(appSelectors.articlesCount);
+  const loading = useSelector(appSelectors.articlesLoading);
 
   useEffect(() => {
     dispatch(fetchArticles());
@@ -25,6 +26,7 @@ export default function UnauthorizedList() {
   return (
     <div className={classes.wrapper}>
       {elems}
+      <Spin spinning={loading} fullscreen />
       <Pagination
         defaultCurrent={1}
         defaultPageSize={5}

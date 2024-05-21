@@ -122,7 +122,7 @@ const userSlice = createSlice({
       state.image = action.payload.image;
     });
 
-    builder.addCase(fetchUser.rejected, (state) => {
+    builder.addCase(fetchUser.rejected, (state,action) => {
       state.error = true;
       state.loading = false;
     });

@@ -152,7 +152,26 @@ const articlesSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(fetchArticles.pending, (state) => {
-      state.error = false;
+      state.loading = true;
+    });
+
+    builder.addCase(fetchSetLike.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(fetchDeleteLike.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(fetchArticle.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(fetchCreateArticle.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(fetchEditArticle.pending, (state) => {
       state.loading = true;
     });
 
@@ -165,6 +184,7 @@ const articlesSlice = createSlice({
     });
 
     builder.addCase(fetchSetLike.fulfilled, (state, action) => {
+      state.loading = false;
       const { slug, favorited, favoritesCount } = action.payload;
 
       const index = state.articles.findIndex((article) => article.slug === slug);
@@ -173,6 +193,7 @@ const articlesSlice = createSlice({
     });
 
     builder.addCase(fetchDeleteLike.fulfilled, (state, action) => {
+      state.loading = false;
       const { slug, favorited, favoritesCount } = action.payload;
       const index = state.articles.findIndex((article) => article.slug === slug);
       state.articles[index].favorited = favorited;
@@ -180,8 +201,8 @@ const articlesSlice = createSlice({
     });
 
     builder.addCase(fetchArticle.fulfilled, (state, action) => {
+      state.loading = false;
       const { slug } = action.payload;
-
       const index = state.articles.findIndex((article) => article.slug === slug);
       if (index !== -1) {
         state.articles[index] = { ...action.payload };
@@ -190,12 +211,14 @@ const articlesSlice = createSlice({
     });
 
     builder.addCase(fetchCreateArticle.fulfilled, (state, action) => {
+      state.loading = false;
       const { slug } = action.payload;
       const index = state.articles.findIndex((article) => article.slug === slug);
       state.articles[index] = { ...action.payload };
     });
 
     builder.addCase(fetchEditArticle.fulfilled, (state, action) => {
+      state.loading = false;
       const { slug } = action.payload;
       const index = state.articles.findIndex((article) => article.slug === slug);
       state.articles[index] = { ...action.payload };

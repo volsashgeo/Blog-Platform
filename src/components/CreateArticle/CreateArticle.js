@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useParams} from 'react-router-dom';
-import { useDispatch,} from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 // import {  fetchEditArticle } from '../../store/oneArticleSlice';
-import { fetchCreateArticle,fetchEditArticle } from '../../store/articlesSlice';
+import { fetchCreateArticle, fetchEditArticle } from '../../store/articlesSlice';
 
 import classes from './CreateArticle.module.scss';
 
@@ -15,13 +15,11 @@ export default function CreateArticle({
   body = '',
   tagList = [],
 }) {
-
   const { slug } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [tagsArray, setTagsArray] = useState(tagList);
-
 
   const ref = useRef(null);
 
@@ -45,11 +43,9 @@ export default function CreateArticle({
     const userData = JSON.stringify(formData);
 
     if (pageName === 'Edit article') {
-      dispatch(fetchEditArticle([slug,userData]));
-      navigate(-2);
+      dispatch(fetchEditArticle([slug, userData])).then((result) => navigate(`/articles/${result.payload.slug}`));
     } else {
-      dispatch(fetchCreateArticle(userData));
-      navigate(-1);
+      dispatch(fetchCreateArticle(userData)).then((result) => navigate(`/articles/${result.payload.slug}`));
     }
   };
 

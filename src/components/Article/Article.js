@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { format } from 'date-fns';
-import { Tag, Popconfirm } from 'antd';
+import { Tag, Popconfirm, Spin } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import Markdown from 'markdown-to-jsx';
 
@@ -26,11 +26,10 @@ export default function Article() {
 
   const fromPage = location.state?.from?.pathname || -1;
 
-  // const article = useSelector(appSelectors.article);
-  // console.log('article',article)
   const articles = useSelector(appSelectors.articles);
+  const loading = useSelector(appSelectors.articlesLoading);
 
-  // console.log('articles from articlesSlice', articles);
+  // const error = useSelector(appSelectors.articlesError);
 
   const article = articles.filter((item) => item.slug === slug)[0] ?? articles[-1];
   const usernameFromStorage = localStorage.getItem('username');
@@ -71,28 +70,17 @@ export default function Article() {
   };
 
   const handleHeartClick = () => {
-    if (!favorited ) {
+    if (!favorited) {
       dispatch(fetchSetLike(slug));
     } else {
       dispatch(fetchDeleteLike(slug));
     }
   };
 
-  // const handleHeartClick = () => {
-  //   if (!like) {
-  //     setLike((s) => !s);
-  //     setLikesCount((s) => s + 1);
-  //     dispatch(fetchSetLike(slug));
-  //   } else {
-  //     setLike((s) => !s);
-  //     setLikesCount((s) => s - 1);
-  //     dispatch(fetchDeleteLike(slug));
-  //   }
-  // };
-
   return (
     <article className={classes.blog_article}>
       <div className={classes.left}>
+        <Spin spinning={loading} />
         <div>
           <span className={classes.title}>{title}</span>
           <div className={classes.likes}>
@@ -104,7 +92,7 @@ export default function Article() {
                 onClick={handleHeartClick}
               ></input>
             </span>
-            {favoritesCount }
+            {favoritesCount}
           </div>
         </div>
         <div className={classes.tags}>{tags}</div>
