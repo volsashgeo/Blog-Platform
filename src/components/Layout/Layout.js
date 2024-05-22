@@ -29,7 +29,7 @@ export default function Layout() {
           <button
             onClick={() => {
               localStorage.clear();
-              dispatch(fetchUserReset({}));
+              dispatch(fetchUserReset());
             }}
           >
             Log Out

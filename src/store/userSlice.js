@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 let userObj = null;
 
-export const fetchUserAuth = createAsyncThunk('user/fetchUser', async (data, { rejectWithValue }) => {
+export const fetchUserAuth = createAsyncThunk('user/fetchUserAuth', async (data, { rejectWithValue }) => {
   try {
     const url = `https://blog.kata.academy/api/users`;
 
@@ -14,24 +14,21 @@ export const fetchUserAuth = createAsyncThunk('user/fetchUser', async (data, { r
       body: data,
     });
 
-    if (!response.ok) {
-      throw new Error(`Could not fetch ${url}, received ${response.status}`);
-    }
-
     userObj = await response.json();
-    if (userObj) {
+
+    if (userObj.user) {
       localStorage.setItem('username', userObj.user?.username);
-      localStorage.setItem('token', userObj.user?.token);
       localStorage.setItem('email', userObj.user?.email);
-      localStorage.setItem('image', userObj.user?.image)
+      localStorage.setItem('token', userObj.user?.token);
+      localStorage.setItem('image', userObj.user?.image);
     }
   } catch (e) {
-    return rejectWithValue(e.message);
+    return rejectWithValue(e.errors);
   }
-  return userObj.user;
+  return userObj.user ?? userObj.errors;
 });
 
-export const fetchUserLogin = createAsyncThunk('user/fetchUser', async (data,{rejectWithValue}) => {
+export const fetchUserLogin = createAsyncThunk('user/fetchUserLogin', async (data, { rejectWithValue }) => {
   try {
     const url = `https://blog.kata.academy/api/users/login`;
 
@@ -52,15 +49,15 @@ export const fetchUserLogin = createAsyncThunk('user/fetchUser', async (data,{re
       localStorage.setItem('username', userObj.user?.username);
       localStorage.setItem('token', userObj.user?.token);
       localStorage.setItem('email', userObj.user?.email);
-      localStorage.setItem('image', userObj.user?.image)
+      localStorage.setItem('image', userObj.user?.image);
     }
   } catch (e) {
-    return rejectWithValue(e.message)
+    return rejectWithValue(e.message);
   }
   return userObj.user;
 });
 
-export const fetchUserEditProfile = createAsyncThunk('user/fetchUser', async (data, { rejectWithValue }) => {
+export const fetchUserEditProfile = createAsyncThunk('user/fetchUserEditProfile', async (data, { rejectWithValue }) => {
   try {
     const url = `https://blog.kata.academy/api/user`;
 
@@ -69,7 +66,7 @@ export const fetchUserEditProfile = createAsyncThunk('user/fetchUser', async (da
     const response = await fetch(url, {
       method: 'PUT',
       headers: {
-        'Authorization': `Token ${token}`,
+        Authorization: `Token ${token}`,
         'Content-Type': 'application/json',
       },
       body: data,
@@ -93,9 +90,7 @@ export const fetchUserEditProfile = createAsyncThunk('user/fetchUser', async (da
   return userObj.user;
 });
 
-export const fetchUserReset = createAsyncThunk('user/fetchUser', async (data) => data);
-
-const fetchUser = fetchUserAuth ?? fetchUserLogin ?? fetchUserEditProfile ?? fetchUserReset;
+export const fetchUserReset = createAsyncThunk('user/fetchUserReset', async (data) => data);
 
 const userSlice = createSlice({
   name: 'user',
@@ -109,12 +104,32 @@ const userSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(fetchUser.pending, (state) => {
+    builder.addCase(fetchUserAuth.pending, (state) => {
       state.error = false;
       state.loading = true;
     });
 
-    builder.addCase(fetchUser.fulfilled, (state, action) => {
+    builder.addCase(fetchUserAuth.fulfilled, (state, action) => {
+      state.loading = false;
+      if (action.payload.token) {
+        state.token = action.payload.token;
+        state.email = action.payload.email;
+        state.username = action.payload.username;
+        state.image = action.payload.image;
+      } else {
+        state.errors = { ...action.payload };
+      }
+    });
+
+    builder.addCase(fetchUserLogin.fulfilled, (state, action) => {
+      state.loading = false;
+      state.token = action.payload.token;
+      state.email = action.payload.email;
+      state.username = action.payload.username;
+      // state.image = action.payload.image;
+    });
+
+    builder.addCase(fetchUserEditProfile.fulfilled, (state, action) => {
       state.loading = false;
       state.token = action.payload.token;
       state.email = action.payload.email;
@@ -122,7 +137,15 @@ const userSlice = createSlice({
       state.image = action.payload.image;
     });
 
-    builder.addCase(fetchUser.rejected, (state,action) => {
+    builder.addCase(fetchUserReset.fulfilled, (state) => {
+      state.loading = false;
+      state.token = null;
+      state.email = null;
+      state.username = null;
+      state.image = null;
+    });
+
+    builder.addCase(fetchUserAuth.rejected, (state) => {
       state.error = true;
       state.loading = false;
     });

@@ -16,6 +16,7 @@ export default function EditProfile() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: 'all',
   });
@@ -33,7 +34,8 @@ export default function EditProfile() {
     const userData = JSON.stringify(formData);
 
     dispatch(fetchUserEditProfile(userData));
-    navigate('/profile');
+    reset();
+    navigate('/');
   };
 
   return (
@@ -117,7 +119,6 @@ export default function EditProfile() {
             placeholder="Avatar image"
             className={classes.input}
             {...register('avatar', {
-
               pattern: {
                 value: /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/,
                 message: 'Invalid Url',

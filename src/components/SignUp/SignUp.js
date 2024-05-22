@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { appSelectors } from '../../store';
 import { fetchUserAuth } from '../../store/userSlice';
 
 import classes from './SignUp.module.scss';
@@ -12,18 +13,19 @@ export default function SignUp() {
 
   const [password, setPassword] = useState(null);
 
-  const navigate = useNavigate();
+  const userErrors = useSelector(appSelectors.userErrorsObj);
+  const { token } = useSelector(appSelectors.userObj);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: 'all',
   });
 
   const onSubmit = (valuesFromForm) => {
-
     const formData = {
       user: {
         username: valuesFromForm.username,
@@ -35,8 +37,11 @@ export default function SignUp() {
     const userData = JSON.stringify(formData);
 
     dispatch(fetchUserAuth(userData));
-    navigate('/');
+    if (token) {
+      reset();
+    }
   };
+
 
   return (
     <div className={classes.wrapper}>
@@ -64,9 +69,9 @@ export default function SignUp() {
           />
         </label>
 
-        {errors.username ? (
+        {errors.username ?? userErrors?.username ? (
           <div className={classes.error_message}>
-            <p> {errors?.username?.message}</p>
+            <p> {errors?.username?.message ?? userErrors.username}</p>
           </div>
         ) : null}
 
@@ -87,9 +92,9 @@ export default function SignUp() {
           />
         </label>
 
-        {errors.email ? (
+        {errors.email ?? userErrors?.email ? (
           <div className={classes.error_message}>
-            <p> {errors?.email?.message}</p>
+            <p> {errors?.email?.message ?? userErrors?.email}</p>
           </div>
         ) : null}
 
@@ -160,9 +165,7 @@ export default function SignUp() {
             </div>
           ) : null}
         </div>
-        <button className={classes.submit_button} >
-          Create
-        </button>
+        <button className={classes.submit_button}>Create</button>
       </form>
 
       <span className={classes.have_an_account}>

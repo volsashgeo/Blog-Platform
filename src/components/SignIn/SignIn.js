@@ -16,6 +16,9 @@ export default function SignIn() {
 
   const navigate = useNavigate();
 
+  const { token } = useSelector(appSelectors.userObj);
+
+
   const { error, username } = useSelector(appSelectors.userObj);
 
   if (username) {
@@ -26,6 +29,7 @@ export default function SignIn() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: 'all',
   });
@@ -41,6 +45,10 @@ export default function SignIn() {
     const userData = JSON.stringify(formData);
 
     dispatch(fetchUserLogin(userData));
+
+    if (token) {
+      reset();
+    }
   };
 
   return (
