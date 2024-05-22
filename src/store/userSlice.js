@@ -126,7 +126,6 @@ const userSlice = createSlice({
       state.token = action.payload.token;
       state.email = action.payload.email;
       state.username = action.payload.username;
-      // state.image = action.payload.image;
     });
 
     builder.addCase(fetchUserEditProfile.fulfilled, (state, action) => {
@@ -149,7 +148,12 @@ const userSlice = createSlice({
       state.error = true;
       state.loading = false;
     });
+    builder.addCase(fetchUserLogin.rejected, (state) => {
+      state.error = true;
+      state.loading = false;
+    });
   },
+
 });
 
 export default userSlice.reducer;

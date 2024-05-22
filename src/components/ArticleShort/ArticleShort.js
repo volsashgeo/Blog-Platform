@@ -27,6 +27,8 @@ export default function ArticleShort({
   const username = author?.username;
   const image = author?.image;
 
+  const token = localStorage.getItem('token');
+
   let tagId = 0;
   const tags = tagList?.slice(0, 5).map((tag) => (
     <Tag key={tagId++} className={classes.tags}>
@@ -35,10 +37,12 @@ export default function ArticleShort({
   ));
 
   const handleHeartClick = () => {
-    if (!favorited) {
-      dispatch(fetchSetLike(slug));
-    } else {
-      dispatch(fetchDeleteLike(slug));
+    if (token) {
+      if (!favorited) {
+        dispatch(fetchSetLike(slug));
+      } else {
+        dispatch(fetchDeleteLike(slug));
+      }
     }
   };
 
@@ -51,7 +55,12 @@ export default function ArticleShort({
           </Link>
           <div className={classes.likes}>
             <span>
-              <input type="image" src={favorited ? redHeart : whiteHeart} alt="heart" onClick={handleHeartClick}></input>
+              <input
+                type="image"
+                src={favorited ? redHeart : whiteHeart}
+                alt="heart"
+                onClick={handleHeartClick}
+              ></input>
             </span>
             {favoritesCount}
           </div>

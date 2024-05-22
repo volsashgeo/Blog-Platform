@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-// import {  fetchEditArticle } from '../../store/oneArticleSlice';
 import { fetchCreateArticle, fetchEditArticle } from '../../store/articlesSlice';
 
 import classes from './CreateArticle.module.scss';

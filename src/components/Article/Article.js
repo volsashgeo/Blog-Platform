@@ -29,8 +29,6 @@ export default function Article() {
   const articles = useSelector(appSelectors.articles);
   const loading = useSelector(appSelectors.articlesLoading);
 
-  // const error = useSelector(appSelectors.articlesError);
-
   const article = articles.filter((item) => item.slug === slug)[0] ?? articles[-1];
   const usernameFromStorage = localStorage.getItem('username');
 

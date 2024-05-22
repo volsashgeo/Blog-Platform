@@ -23,6 +23,7 @@ export default function UnauthorizedList() {
     return <ArticleShort key={slug} {...item} />;
   });
 
+
   return (
     <div className={classes.wrapper}>
       {elems}

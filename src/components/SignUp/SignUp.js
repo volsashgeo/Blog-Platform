@@ -65,7 +65,7 @@ export default function SignUp() {
                 message: 'Maximum 20 characters',
               },
             })}
-            style={errors.username ? { borderColor: 'rgba(245, 34, 45, 1)' } : null}
+            style={errors.username ?? userErrors ? { borderColor: 'rgba(245, 34, 45, 1)' } : null}
           />
         </label>
 
@@ -88,7 +88,7 @@ export default function SignUp() {
                 message: 'Invalid email',
               },
             })}
-            style={errors.email ? { borderColor: 'rgba(245, 34, 45, 1)' } : null}
+            style={errors.email ?? userErrors?.email ? { borderColor: 'rgba(245, 34, 45, 1)' } : null}
           />
         </label>
 

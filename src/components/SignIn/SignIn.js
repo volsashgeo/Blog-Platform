@@ -69,7 +69,7 @@ export default function SignIn() {
                 message: 'Invalid email',
               },
             })}
-            style={errors.email ? { borderColor: 'rgba(245, 34, 45, 1)' } : null}
+            style={errors.email ?? error ? { borderColor: 'rgba(245, 34, 45, 1)' } : null}
           />
         </label>
 
@@ -88,7 +88,7 @@ export default function SignIn() {
             {...register('password', {
               required: 'Required field',
             })}
-            style={errors.password ? { borderColor: 'rgba(245, 34, 45, 1)' } : null}
+            style={errors.password ?? error ? { borderColor: 'rgba(245, 34, 45, 1)' } : null}
           />
         </label>
 
