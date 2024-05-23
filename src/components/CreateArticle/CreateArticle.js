@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchCreateArticle, fetchEditArticle } from '../../store/articlesSlice';
+import { appSelectors } from '../../store';
 
 import classes from './CreateArticle.module.scss';
 
@@ -14,6 +15,8 @@ export default function CreateArticle({
   body = '',
   tagList = [],
 }) {
+  const loading = useSelector(appSelectors.articlesLoading);
+
   const { slug } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -171,6 +174,7 @@ export default function CreateArticle({
               defaultValue="Delete"
               className={classes.delete_button}
               onClick={(e) => deleteTag(e)}
+              disabled={loading}
             />
 
             <input
@@ -179,11 +183,14 @@ export default function CreateArticle({
               defaultValue="Add tag"
               className={classes.add_tag_button}
               onClick={addTag}
+              disabled={loading}
             />
           </div>
         </label>
 
-        <button className={classes.submit_button}>Send</button>
+        <button className={classes.submit_button} disabled={loading}>
+          Send
+        </button>
       </form>
     </div>
   );

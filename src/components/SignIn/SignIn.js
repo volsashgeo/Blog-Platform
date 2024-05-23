@@ -16,8 +16,7 @@ export default function SignIn() {
 
   const navigate = useNavigate();
 
-  const { token } = useSelector(appSelectors.userObj);
-
+  const { token, loading } = useSelector(appSelectors.userObj);
 
   const { error, username } = useSelector(appSelectors.userObj);
 
@@ -49,6 +48,7 @@ export default function SignIn() {
     if (token) {
       reset();
     }
+    navigate(-1);
   };
 
   return (
@@ -100,7 +100,9 @@ export default function SignIn() {
 
         {error && <span className={classes.error_message}> Unregistered email or password</span>}
 
-        <button className={classes.submit_button}>Login</button>
+        <button className={classes.submit_button} disabled={loading}>
+          Login
+        </button>
       </form>
 
       <span className={classes.have_an_account}>

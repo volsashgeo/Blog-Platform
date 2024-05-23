@@ -207,7 +207,7 @@ const articlesSlice = createSlice({
       if (index !== -1) {
         state.articles[index] = { ...action.payload };
       }
-      state.articles[-1] = { ...action.payload };
+      state.articles[0] = { ...action.payload };
     });
 
     builder.addCase(fetchCreateArticle.fulfilled, (state, action) => {

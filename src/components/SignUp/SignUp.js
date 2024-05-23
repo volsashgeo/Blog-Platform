@@ -14,7 +14,7 @@ export default function SignUp() {
   const [password, setPassword] = useState(null);
 
   const userErrors = useSelector(appSelectors.userErrorsObj);
-  const { token } = useSelector(appSelectors.userObj);
+  const { token, loading } = useSelector(appSelectors.userObj);
 
   const {
     register,
@@ -165,7 +165,7 @@ export default function SignUp() {
             </div>
           ) : null}
         </div>
-        <button className={classes.submit_button}>Create</button>
+        <button className={classes.submit_button} disabled={loading}>Create</button>
       </form>
 
       <span className={classes.have_an_account}>

@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { Tag } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 
 import whiteHeart from '../../images/white_heart.svg';
 import redHeart from '../../images/red_heart.svg';
 import avatar from '../../images/avatar.png';
 import makeShortDescription from '../../utils';
 import { fetchSetLike, fetchDeleteLike } from '../../store/articlesSlice';
+import { appSelectors } from '../../store';
 
 import classes from './ArticleShort.module.scss';
 
@@ -22,12 +23,14 @@ export default function ArticleShort({
   favorited,
   slug,
 }) {
+  const userObj = useSelector(appSelectors.userObj)
+  const token = userObj.token ?? localStorage.getItem('token');
+
   const dispatch = useDispatch();
 
   const username = author?.username;
   const image = author?.image;
 
-  const token = localStorage.getItem('token');
 
   let tagId = 0;
   const tags = tagList?.slice(0, 5).map((tag) => (
@@ -60,6 +63,7 @@ export default function ArticleShort({
                 src={favorited ? redHeart : whiteHeart}
                 alt="heart"
                 onClick={handleHeartClick}
+                disabled={!token}
               ></input>
             </span>
             {favoritesCount}

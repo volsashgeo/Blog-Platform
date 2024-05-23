@@ -17,6 +17,9 @@ export default function Article() {
   const { slug } = useParams();
   const dispatch = useDispatch();
 
+  const userObj = useSelector(appSelectors.userObj)
+  const token = userObj.token ?? localStorage.getItem('token');
+
   useEffect(() => {
     dispatch(fetchArticle(slug));
   }, [dispatch, slug]);
@@ -30,6 +33,7 @@ export default function Article() {
   const loading = useSelector(appSelectors.articlesLoading);
 
   const article = articles.filter((item) => item.slug === slug)[0] ?? articles[-1];
+
   const usernameFromStorage = localStorage.getItem('username');
 
   const author = article?.author;
@@ -56,8 +60,6 @@ export default function Article() {
   ));
 
   const confirm = () => {
-    const token = localStorage.getItem('token');
-
     fetch(`https://blog.kata.academy/api/articles/${slug}`, {
       method: 'DELETE',
       headers: {
@@ -68,10 +70,12 @@ export default function Article() {
   };
 
   const handleHeartClick = () => {
-    if (!favorited) {
-      dispatch(fetchSetLike(slug));
-    } else {
-      dispatch(fetchDeleteLike(slug));
+    if (token) {
+      if (!favorited) {
+        dispatch(fetchSetLike(slug));
+      } else {
+        dispatch(fetchDeleteLike(slug));
+      }
     }
   };
 
@@ -88,6 +92,7 @@ export default function Article() {
                 src={favorited ? redHeart : whiteHeart}
                 alt="heart"
                 onClick={handleHeartClick}
+                disabled={!token}
               ></input>
             </span>
             {favoritesCount}
@@ -117,13 +122,14 @@ export default function Article() {
               cancelText="No"
               style={{ width: '246px' }}
             >
-              <input type="button" value="Delete" className={classes.button} />
+              <input type="button" value="Delete" className={classes.button} disabled={loading} />
             </Popconfirm>
             <input
               type="button"
               value="Edit"
               className={classes.button}
               onClick={() => navigate(`/articles/${slug}/edit`)}
+              disabled={loading}
             />
           </div>
         ) : null}
